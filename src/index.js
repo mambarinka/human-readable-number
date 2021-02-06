@@ -19,9 +19,48 @@ const numberToRead = {
     17: 'seventeen',
     18: 'eighteen',
     19: 'nineteen',
-    20: 'twenty'
+    20: 'twenty',
+    30: 'thirty',
+    40: 'forty',
+    50: 'fifty',
+    60: 'sixty',
+    70: 'seventy',
+    80: 'eighty',
+    90: 'ninety',
+    100: 'hundred'
 };
 
-module.exports = function toReadable(number) {
-    return numberToRead[number];
+const hundred = 100;
+
+function nameFn(num) {
+    let arrayNum = [];
+
+    if (num < 100) {
+        if (Object.keys(numberToRead).includes(String(num))) {
+            arrayNum = [num];
+        } else {
+            arrayNum = [num - num % 10, num % 10];
+        }
+    } else if (num > 100) {
+        if (num % 100 !== 0) {
+            if (Object.keys(numberToRead).includes(String(num % 100))) {
+                arrayNum = [Math.floor(num/100) ,hundred, num%100];
+            } else {
+                arrayNum = [Math.floor(num/100), hundred, num%100-num%10, num%10];
+            }
+        } else if (num % 100 === 0) {
+            arrayNum = [Math.floor(num/100),hundred];
+        }
+    } else {
+        arrayNum = [Math.floor(num/100),hundred];
+    }
+
+    return arrayNum;
 }
+
+module.exports = function toReadable(number) {
+    let arrayReadable = nameFn(number).map(function (item) {
+         return numberToRead[item];
+     });
+     return arrayReadable.join(' ');
+};
