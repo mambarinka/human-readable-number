@@ -44,15 +44,15 @@ function nameFn(num) {
     } else if (num > 100) {
         if (num % 100 !== 0) {
             if (Object.keys(numberToRead).includes(String(num % 100))) {
-                arrayNum = [Math.floor(num/100) ,hundred, num%100];
+                arrayNum = [Math.floor(num / 100), hundred, num % 100];
             } else {
-                arrayNum = [Math.floor(num/100), hundred, num%100-num%10, num%10];
+                arrayNum = [Math.floor(num / 100), hundred, num % 100 - num % 10, num % 10];
             }
         } else if (num % 100 === 0) {
-            arrayNum = [Math.floor(num/100),hundred];
+            arrayNum = [Math.floor(num / 100), hundred];
         }
     } else {
-        arrayNum = [Math.floor(num/100),hundred];
+        arrayNum = [Math.floor(num / 100), hundred];
     }
 
     return arrayNum;
@@ -60,7 +60,7 @@ function nameFn(num) {
 
 module.exports = function toReadable(number) {
     let arrayReadable = nameFn(number).map(function (item) {
-         return numberToRead[item];
-     });
-     return arrayReadable.join(' ');
+        return numberToRead[item];
+    });
+    return arrayReadable.join(' ');
 };
